@@ -1,0 +1,64 @@
+#include "SFML/Graphics.hpp"
+using namespace sf;
+class Events
+{
+private:
+public:
+	void movementInput(RenderWindow window, Sprite obj1, Sprite obj2) {//user presses left and right arrows, changes direction of where the player is going
+		while (window.isOpen()) {
+			int x = 0, y = 0, yPrime = 0;
+			yPrime += 0.3;
+			y += yPrime;
+			while (y > 1000) {
+				yPrime = -5;
+			}
+			obj1.setPosition(x, y);
+			if (Keyboard::isKeyPressed(Keyboard::Left)) {
+				x -= 5;
+				window.draw(obj1);//draw left facing
+			}
+			else if (Keyboard::isKeyPressed(Keyboard::Right)) {
+				x += 5;
+				window.draw(obj2);//draw right facing
+			}
+		}
+	}
+	void shoot(RenderWindow window, Sprite obj1, Sprite obj2) {//user presses space bar, sprite is changed to face upward, bullet sprite is loaded and moves upwards
+		int y = obj2.getPosition().y, yPrime = 0;
+		if (Keyboard::isKeyPressed(Keyboard::Space)) {
+			yPrime = 10;
+			while (obj1.getPosition().y < 1000) {
+				window.draw(obj2);//draw player facing upward
+				y += yPrime;
+				obj1.setPosition(obj2.getPosition().x, y);
+				window.draw(obj1);//draw bullet
+			}
+		}
+	}
+};
+
+class Actions
+{
+private:
+public:
+	void inBounds(RenderWindow window, Sprite obj) {
+		if (obj.getPosition().x > 1000) {
+			obj.setPosition(0,obj.getPosition().y);
+		}
+		else if (obj.getPosition().x < 0) {
+			obj.setPosition(1000, obj.getPosition().y);
+		}
+	}
+	void endGame(RenderWindow window, Sprite obj1, Sprite obj2) {
+		if (obj1.getPosition().y < obj2.getPosition().y) {
+			window.clear();
+		}
+	}
+	bool collisionDetection(RenderWindow window, Sprite obj1, Sprite obj2) {
+		bool success = false;
+		if (obj1.getGlobalBounds().intersects(obj2.getGlobalBounds())) {
+			success = true;
+		}
+		return success;
+	}
+};
