@@ -1,0 +1,70 @@
+#include <SFML/Graphics.hpp>
+class Platform
+{
+public:
+
+    Platform(sf::Texture& texture double x, double y, double width, double float) 
+        : texture(&texture), width(width), height(height)
+    {
+        sprite.setTexture(*texture);
+        sprite.setPos(x, y);
+        sprites.setSize(width / texture.getSize().x, height / texture.getSize().y);
+    }
+
+    void draw(sf::RenderWindow& window) //what displays the platforms on the SFML window
+    {
+        window.draw(sprite);
+    }
+
+    void setPos(double x, double y) //set the postion of the platforms
+    {
+        sprite.setPos(x, y);
+    }
+
+    sf::FloatRec getBounds() const //returns the global bounding rectangle (might help with collisions)
+    {
+        return sprite.getGlobalBounds();
+    }
+
+private:
+    sf::Texture& texture;
+    sf::Sprite sprite
+        double width;
+    double height;
+}
+
+
+class PlayerSprite
+{
+public:
+
+    PlayerSprite(sf::Texture& texture double x, double y, double width, double float)
+        : texture(&texture), width(width), height(height), velocity(0)
+    {
+        sprite.setTexture(*texture);
+        sprite.setPos(x, y);
+        sprites.setSize(width / texture.getSize().x, height / texture.getSize().y);
+    }
+
+    void draw(sf::RenderWindow& window)
+    {
+        window.draw(sprite);
+    }
+
+    void setPos(double x, double y)
+    {
+        sprite.setPos(x, y);
+    }
+
+    sf::FloatRec getBounds() const
+    {
+        return sprite.getGlobalBounds();
+    }
+
+private:
+    sf::Texture& texture;
+    sf::Sprite sprite;
+    double width;
+    double height;
+    double velocity;
+}
