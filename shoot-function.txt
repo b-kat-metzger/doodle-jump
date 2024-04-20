@@ -1,0 +1,10 @@
+void shoot(sf::Sprite obj1) {//user presses space bar, sprite is changed to face upward, bullet sprite is loaded and moves upwards
+	if (Keyboard::isKeyPressed(Keyboard::Space)) {
+		while (obj1.getPosition().y < 1000) {
+			obj1.move(0, 10);
+		}
+		if (obj1.getPosition().y > 1000) {
+			delete obj1;
+		}
+	}
+}
